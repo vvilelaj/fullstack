@@ -9,6 +9,10 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { ClienteComponent } from './clientes/cliente/cliente.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EstadisticaComponent } from './clientes/estadistica/estadistica.component';
 
 @NgModule({
   declarations: [
@@ -16,16 +20,25 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    ClientesComponent,
+    ClienteComponent,
+    EstadisticaComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    // ChartsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'clientes', component: ClientesComponent },
+      { path: 'cliente', component: ClienteComponent },
+      { path: 'cliente/:id', component: ClienteComponent },
+      { path: 'estadistica', component: EstadisticaComponent }
     ])
   ],
   providers: [],

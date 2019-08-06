@@ -14,7 +14,7 @@ namespace fullstack.clients.Persistance
         private string host = "vvilelaj.documents.azure.com";
         private int port = 10255;
         private string password = "6zK9DVpJ6kcpGkf8XLbBEYIjXsNQgECpNuI2ChEQB0Wtpfabjrx8H5gN5GigmzEgXQdxRL3PwEmaAY8JxwrxCA==";
-        private string dbName = "Portal";
+        private string dbName = "vvilelaj";
 
         public MongoContext()
         {

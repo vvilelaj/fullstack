@@ -39,14 +39,18 @@ namespace fullstack.clients.Services
         {
             ValidateClientInformation(client);
             if (!string.IsNullOrEmpty(client._id)) throw new ArgumentException("client._id deberia ser nulo o vacio");
+            UpdatePossibleDeathDate(client);
 
+            clientsRepository.Create(client);
+        }
+
+        private void UpdatePossibleDeathDate(Client client)
+        {
             var deathDateInTicks = predictionsClient.GetPosibleDateDeth(client);
             var deathDate = new DateTime(deathDateInTicks);
 
             if (deathDate.Date >= DateTime.Now.Date)
                 client.FechaProbableMuerte = deathDate;
-
-            clientsRepository.Create(client);
         }
 
         public bool Delete(string clientId)
@@ -90,6 +94,8 @@ namespace fullstack.clients.Services
             ValidateClientInformation(client);
 
             client._id = clientId;
+
+            UpdatePossibleDeathDate(client);
 
             return clientsRepository.Update(client);
         }

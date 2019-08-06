@@ -1,4 +1,4 @@
-﻿using fullstack.clients.Models;
+﻿using fullstack.Kpis.Models;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Authentication;
 using System.Web;
 
-namespace fullstack.clients.Persistance
+namespace fullstack.kpis.Persistance
 {
     public class MongoContext
     {
@@ -14,7 +14,7 @@ namespace fullstack.clients.Persistance
         private string host = "vvilelaj.documents.azure.com";
         private int port = 10255;
         private string password = "6zK9DVpJ6kcpGkf8XLbBEYIjXsNQgECpNuI2ChEQB0Wtpfabjrx8H5gN5GigmzEgXQdxRL3PwEmaAY8JxwrxCA==";
-        private string dbName = "Portal";
+        private string dbName = "BI";
 
         public MongoContext()
         {
@@ -39,12 +39,9 @@ namespace fullstack.clients.Persistance
             return database;
         }
 
-        public IMongoCollection<Client> GetClients()
+        public IMongoCollection<Kpi> GetKpis()
         {
-            return GetDataBase().GetCollection<Client>("Clients");
+            return GetDataBase().GetCollection<Kpi>("Kpis");
         }
-
-        
-
     }
 }

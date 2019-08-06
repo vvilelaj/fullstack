@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace fullstack.clients.Controllers
 {
@@ -28,7 +29,8 @@ namespace fullstack.clients.Controllers
         /// <returns></returns>
         [Route("")]
         [HttpGet]
-        public IHttpActionResult  Get()
+        [ResponseType(typeof(JsonResultModel<PagedResultModel<Client>>))]
+        public IHttpActionResult Get(int pageIndex = 1, int pageSize = 50)
         {
             var result = new JsonResultModel<PagedResultModel<Client>>() { Success = false }; ;
 
@@ -36,7 +38,7 @@ namespace fullstack.clients.Controllers
 
             try
             {
-                result.Result = clientsService.Get(1, 50);
+                result.Result = clientsService.Get(pageIndex, pageSize);
                 result.Success = true;
                 stopWatch.Stop();
                 LogManager.AddInfo("ClientsController.GET");
@@ -52,22 +54,25 @@ namespace fullstack.clients.Controllers
             return Ok(result);
         }
 
-        [Route("")]
+        /// <summary>
+        /// Exponer los clientes registrados en la colección
+        /// </summary>
+        /// <returns></returns>
+        [Route("{clientId}")]
         [HttpGet]
-        public IHttpActionResult Get(int pageIndex, int pageSize)
+        [ResponseType(typeof(JsonResultModel<Client>))]
+        public IHttpActionResult Get(string clientId)
         {
-            LogManager.AddInfo(DateTime.Now + $" BEGIN : ClientsController.GET pageIndex:{pageIndex}  pageSize:{pageSize}");
-
-            var result = new JsonResultModel<PagedResultModel<Client>>() { Success = false }; ;
+            var result = new JsonResultModel<Client>() { Success = false }; ;
 
             var stopWatch = GetStopWatch();
 
             try
             {
-                result.Result = clientsService.Get(pageIndex, pageSize);
+                result.Result = clientsService.Get(clientId);
                 result.Success = true;
-                LogManager.AddInfo(DateTime.Now + $" SUCCESS : ClientsController.GET pageIndex:{pageIndex}  pageSize:{pageSize}");
                 stopWatch.Stop();
+                LogManager.AddInfo("ClientsController.GET");
             }
             catch (Exception ex)
             {
@@ -86,6 +91,8 @@ namespace fullstack.clients.Controllers
         /// <param name="client">Consta de nombre,apellido y fecha de nacimiento</param>
         /// <returns></returns>
         [Route("")]
+        [HttpPost]
+        [ResponseType(typeof(JsonResultModel<string>))]
         public IHttpActionResult Post([FromBody] Client client)
         {
             LogManager.AddInfo(DateTime.Now + $" BEGIN : ClientsController.Post Nombre:{client.Nombre}, Apellido:{client.Apellido}");
@@ -119,6 +126,7 @@ namespace fullstack.clients.Controllers
         /// <returns></returns>
         [Route("{clientId}")]
         [HttpPatch]
+        [ResponseType(typeof(JsonResultModel<string>))]
         public IHttpActionResult Patch(string clientId, [FromBody] Client client)
         {
             LogManager.AddInfo(DateTime.Now + $" BEGIN : ClientsController.patch clientId:{clientId}");
@@ -151,6 +159,7 @@ namespace fullstack.clients.Controllers
         /// <returns></returns>
         [Route("{clientId}")]
         [HttpDelete]
+        [ResponseType(typeof(JsonResultModel<string>))]
         public IHttpActionResult Delete(string clientId)
         {
             LogManager.AddInfo(DateTime.Now + $" BEGIN : ClientsController.delete clientId:{clientId}");

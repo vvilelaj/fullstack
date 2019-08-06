@@ -76,6 +76,13 @@ namespace fullstack.clients.Services
             return result;
         }
 
+        public Client Get(string clientId)
+        {
+            if (string.IsNullOrWhiteSpace(clientId)) throw new ArgumentException("No puede ser nulo o vacio", "clientId");
+
+            return clientsRepository.Get(clientId);
+        }
+
         public bool Update(string clientId, Client client)
         {
             ThrowExceptionWheCliendIdIsNull(clientId);

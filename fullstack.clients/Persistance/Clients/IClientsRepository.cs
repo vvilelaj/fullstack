@@ -11,6 +11,8 @@ namespace fullstack.clients.Persistance.Clients
     {
         List<Client> Get(int pageIndex, int pageSize);
 
+        Client Get(string clientId);
+
         void Create(Client client);
 
         bool Update(Client client );

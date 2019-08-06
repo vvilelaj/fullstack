@@ -19,6 +19,12 @@ namespace fullstack.clients.Persistance.Clients
         {
             return context.GetClients().Find(_ => true).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList();
         }
+
+        public Client Get(string clientId)
+        {
+            return context.GetClients().Find(Builders<Client>.Filter.Eq(x => x._id, clientId)).FirstOrDefault();
+        }
+
         public void Create(Client Client)
         {
             var collection = context.GetClients();

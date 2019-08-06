@@ -11,6 +11,8 @@ namespace fullstack.clients.Services.Interfaces
     interface IClientsService
     {
         PagedResultModel<Client> Get(int pageIndex, int pageSize);
+
+        Client Get(string clientId);
         void Create(Client client);
         bool Update(string clientId, Client client);
         bool Delete(string clientId);

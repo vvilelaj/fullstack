@@ -22,8 +22,8 @@ namespace fullstack.kpis.Services
         {
             if (kpi == null) throw new ArgumentNullException("kpi");
             if (kpi.Fecha ==  DateTime.MinValue || kpi.Fecha == DateTime.MaxValue) throw new ArgumentException("Fecha inválida");
-            if (kpi.PromedioEdad < 0) throw new ArgumentException("PromedioEdad no puede ser negatico o igual a cero");
-            if (kpi.DesviacionEstandar <= 0) throw new ArgumentException("DesviacionEstandar no puede ser negativa o igual a cero");
+            //if (kpi.PromedioEdad < 0) throw new ArgumentException("PromedioEdad no puede ser negatico o igual a cero");
+            //if (kpi.DesviacionEstandar <= 0) throw new ArgumentException("DesviacionEstandar no puede ser negativa o igual a cero");
         }
 
         private static void ThrowExceptionWhenKpiIdIsNull(string kpiId)

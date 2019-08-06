@@ -9,7 +9,7 @@ namespace fullstack.clients.Persistance.Clients
 {
     public interface IClientsRepository
     {
-        List<Client> Get(int pageIndex, int pageSize);
+        List<Client> Get(int pageIndex, long pageSize);
 
         Client Get(string clientId);
 

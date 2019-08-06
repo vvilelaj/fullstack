@@ -16,5 +16,7 @@ namespace fullstack.clients.Services.Interfaces
         void Create(Client client);
         bool Update(string clientId, Client client);
         bool Delete(string clientId);
+
+        decimal AverageAge();
     }
 }

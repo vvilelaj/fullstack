@@ -15,9 +15,13 @@ namespace fullstack.clients.Persistance.Clients
             context = new MongoContext();
         }
 
-        public List<Client> Get(int pageIndex, int pageSize)
+        public List<Client> Get(int pageIndex, long pageSize)
         {
-            return context.GetClients().Find(_ => true).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToList();
+            var totalClients = this.TotalClients();
+            if (pageSize < totalClients)
+                return context.GetClients().Find(_ => true).Skip((pageIndex - 1) * (int)pageSize).Limit((int)pageSize).ToList();
+            else
+                return context.GetClients().Find(_ => true).ToList();
         }
 
         public Client Get(string clientId)

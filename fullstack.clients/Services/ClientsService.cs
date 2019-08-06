@@ -100,5 +100,20 @@ namespace fullstack.clients.Services
             return clientsRepository.Update(client);
         }
 
+        public decimal AverageAge()
+        {
+            decimal result = 0;
+
+            var today = DateTime.Now.Date;
+            var totalClients = this.clientsRepository.TotalClients();
+
+            var clients = this.clientsRepository.Get(1, totalClients);
+            var totalEdades = clients.Sum(x => x.Edad);
+
+            result = totalEdades / totalClients;
+
+            return result;
+        }
+
     }
 }
